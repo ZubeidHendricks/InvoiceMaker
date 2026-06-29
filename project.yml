@@ -38,3 +38,26 @@ targets:
         SWIFT_VERSION: "5.0"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_STYLE: Automatic
+
+  InvoiceMakerTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - Tests
+      - path: Sources/Invoice.swift
+    settings:
+      base:
+        PRODUCT_NAME: InvoiceMakerTests
+        PRODUCT_BUNDLE_IDENTIFIER: com.zubeid.invoicemaker.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_VERSION: "5.0"
+
+schemes:
+  Tests:
+    build:
+      targets:
+        InvoiceMakerTests: [test]
+    test:
+      targets:
+        - InvoiceMakerTests

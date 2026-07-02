@@ -17,17 +17,17 @@ targets:
     platform: iOS
     sources:
       - Sources
+      - Resources
     dependencies:
       - package: AppFactoryKit
         product: AppFactoryKit
-      - package: AppFactoryKit
-        product: AppFactoryKitRevenueCat
     info:
       path: Sources/Info.plist
       properties:
-        CFBundleDisplayName: "InvoiceMaker"
+        CFBundleDisplayName: "Invoice Maker"
         UILaunchScreen: {}
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        ITSAppUsesNonExemptEncryption: false
     settings:
       base:
         PRODUCT_NAME: InvoiceMaker
@@ -38,6 +38,7 @@ targets:
         SWIFT_VERSION: "5.0"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_STYLE: Automatic
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
 
   InvoiceMakerTests:
     type: bundle.unit-test

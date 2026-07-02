@@ -1,0 +1,20 @@
+Invoice Maker turns your iPhone into your billing department. Create a professional, itemized PDF invoice in under a minute and send it to any client.
+
+BUILT FOR FREELANCERS & SMALL BUSINESS
+• Itemized line items with quantity and rate
+• Automatic subtotal, tax and total
+• Clean, professional PDF layout
+• Share by Mail, Messages, WhatsApp or any app
+
+GET PAID FASTER
+• Number your invoices your way
+• Bill To / From details on every document
+• Watermark-free export with Pro
+SUBSCRIPTIONS
+Pro is an auto-renewing subscription (yearly or weekly). Payment is charged to your Apple ID at confirmation; it renews unless cancelled at least 24 hours before the period ends. Manage or cancel anytime in your Apple ID settings.
+
+PRIVACY FIRST
+Everything runs on your device — nothing is uploaded.
+
+Terms: https://zubeidhendricks.github.io/InvoiceMaker/terms.html
+Privacy: https://zubeidhendricks.github.io/InvoiceMaker/privacy.html

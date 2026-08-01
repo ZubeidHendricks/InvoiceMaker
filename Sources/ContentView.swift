@@ -5,6 +5,7 @@ import AppFactoryKit
 // and share it. Fully on-device. Free tier adds a small footer; Pro removes it.
 struct ContentView: View {
     @EnvironmentObject private var factory: AppFactory
+    @StateObject private var stats = InvoiceStats()
 
     @State private var invoice = Invoice()
     @State private var shareItem: ShareItem?
@@ -49,6 +50,24 @@ struct ContentView: View {
                     .buttonStyle(.borderedProminent).tint(.green)
                     .disabled(invoice.items.isEmpty)
                 }
+
+                // Competence feedback per ../PLAYBOOK.md: lifetime invoiced total
+                // + largest-invoice record — real work done, never app opens.
+                if stats.lifetimeTotal > 0 {
+                    Section {
+                        HStack {
+                            Label("Invoiced all-time", systemImage: "chart.line.uptrend.xyaxis")
+                            Spacer()
+                            Text(stats.lifetimeTotal, format: .currency(code: "USD")).foregroundStyle(.secondary)
+                        }
+                        HStack {
+                            Label("Largest invoice", systemImage: "trophy")
+                            Spacer()
+                            Text(stats.largestInvoice, format: .currency(code: "USD")).foregroundStyle(.secondary)
+                        }
+                    }
+                    .font(.subheadline)
+                }
             }
             .navigationTitle("Invoice Maker")
         }
@@ -62,6 +81,7 @@ struct ContentView: View {
         let data = InvoicePDF.render(invoice, watermark: !isPro)
         let url = FileManager.default.temporaryDirectory.appendingPathComponent("\(invoice.number).pdf")
         try? data.write(to: url)
+        stats.recordInvoice(total: invoice.total)
         shareItem = ShareItem(items: [url])
     }
 }

@@ -25,3 +25,39 @@ final class InvoiceTests: XCTestCase {
         XCTAssertEqual(PDFDocument(data: data)?.pageCount, 1)
     }
 }
+
+// Engagement layer per ../PLAYBOOK.md (CF): lifetime invoiced total + record.
+final class InvoiceStatsTests: XCTestCase {
+    private let suiteName = "invoicestats.tests"
+    private var defaults: UserDefaults!
+
+    override func setUp() {
+        super.setUp()
+        defaults = UserDefaults(suiteName: suiteName)
+        defaults.removePersistentDomain(forName: suiteName)
+    }
+
+    func testAccumulatesTotalAndTracksLargest() {
+        let stats = InvoiceStats(defaults: defaults)
+        stats.recordInvoice(total: 100)
+        stats.recordInvoice(total: 250)
+        stats.recordInvoice(total: 50)
+        XCTAssertEqual(stats.lifetimeTotal, 400, accuracy: 0.001)
+        XCTAssertEqual(stats.largestInvoice, 250, accuracy: 0.001)
+    }
+
+    func testPersistsAcrossInstances() {
+        InvoiceStats(defaults: defaults).recordInvoice(total: 99.5)
+        let reloaded = InvoiceStats(defaults: defaults)
+        XCTAssertEqual(reloaded.lifetimeTotal, 99.5, accuracy: 0.001)
+        XCTAssertEqual(reloaded.largestInvoice, 99.5, accuracy: 0.001)
+    }
+
+    func testIgnoresNonPositiveTotals() {
+        let stats = InvoiceStats(defaults: defaults)
+        stats.recordInvoice(total: 0)
+        stats.recordInvoice(total: -10)
+        XCTAssertEqual(stats.lifetimeTotal, 0, accuracy: 0.001)
+        XCTAssertEqual(stats.largestInvoice, 0, accuracy: 0.001)
+    }
+}

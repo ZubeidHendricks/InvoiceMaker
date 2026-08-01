@@ -30,6 +30,13 @@ purchases). To go live:
 
 Bundle id: `com.zubeid.invoicemaker`
 
+## Engagement (see ../PLAYBOOK.md)
+
+Competence feedback (CF) only: lifetime invoiced total + "largest invoice"
+personal record (`Sources/InvoiceStats.swift`, persisted in UserDefaults),
+shown as a compact form section. Money is the competence score — no points,
+badges, or streaks.
+
 ## Ship to TestFlight
 
 This app ships with a Fastlane lane + GitHub Actions workflow. One-time account
